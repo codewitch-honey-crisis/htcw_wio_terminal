@@ -84,19 +84,31 @@ static void button_right_on_click(int clicks,void* state) {
 static void button_press_on_click(int clicks,void* state) {
     Serial.println("Press");
 }
+static void buttons_on_pressed_changed(bool pressed, void* state) {
+    draw_buttons();
+}
 void setup() {
     Serial.begin(115200);
     wio_initialize();
     
     // set the button callbacks
     button_a.on_click(button_a_on_click);
+    button_a.on_pressed_changed(buttons_on_pressed_changed);
     button_b.on_click(button_b_on_click);
+    button_b.on_pressed_changed(buttons_on_pressed_changed);
     button_c.on_click(button_c_on_click);
+    button_c.on_pressed_changed(buttons_on_pressed_changed);
     button_up.on_click(button_up_on_click);
+    button_up.on_pressed_changed(buttons_on_pressed_changed);
     button_down.on_click(button_down_on_click);
+    button_down.on_pressed_changed(buttons_on_pressed_changed);
     button_left.on_click(button_left_on_click);
+    button_left.on_pressed_changed(buttons_on_pressed_changed);
     button_right.on_click(button_right_on_click);
+    button_right.on_pressed_changed(buttons_on_pressed_changed);
     button_press.on_click(button_press_on_click);
+    button_press.on_pressed_changed(buttons_on_pressed_changed);
+    
     
     draw::filled_rectangle(lcd,lcd.bounds(),color_t::black);
     open_text_info oti;
@@ -113,13 +125,9 @@ void setup() {
         draw::bitmap(lcd,txtr,bmp,bmp.bounds());
         free(bmp.begin());
     }
+    draw_buttons();
 }
 
 void loop() {
     wio_update();
-    static uint32_t update_ts = 0;
-    if(millis()>update_ts+250) {
-        update_ts = millis();
-        draw_buttons();
-    }
 }

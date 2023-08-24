@@ -10,7 +10,7 @@ button_press_t button_press_raw;
 
 arduino::multi_button button_up(button_up_raw);
 arduino::multi_button button_down(button_down_raw);
-arduino::multi_button button_left(button_up_left);
+arduino::multi_button button_left(button_left_raw);
 arduino::multi_button button_right(button_right_raw);
 arduino::multi_button button_press(button_press_raw);
 

@@ -40,7 +40,7 @@ static void draw_buttons() {
     
     srect16 middle_rect(0,9,8,17);
 
-    srect16 button_rect(0,0,10,7);
+    srect16 button_rect(0,0,17,7);
 
     spoint16 org = up_path.bounds().center((srect16)lcd.bounds()).offset(0,10).top_left();
     up_path.offset_inplace(org);
@@ -69,7 +69,6 @@ static void button_b_on_click(int clicks,void* state) {
 static void button_c_on_click(int clicks,void* state) {
     Serial.println("C");
 }
-
 static void button_up_on_click(int clicks,void* state) {
     Serial.println("Up");
 }
@@ -83,7 +82,6 @@ static void button_right_on_click(int clicks,void* state) {
     Serial.println("Right");
 }
 static void button_press_on_click(int clicks,void* state) {
-    // reset the dimmer
     Serial.println("Press");
 }
 void setup() {

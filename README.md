@@ -13,5 +13,5 @@ lib_deps = 	SPI
 			codewitch-honey-crisis/htcw_wio_terminal
 monitor_speed = 115200
 build_unflags=-std=gnu++11
-build_flags=-std=gnu++14
+build_flags=-std=gnu++17
 ```

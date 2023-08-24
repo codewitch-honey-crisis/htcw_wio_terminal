@@ -5,7 +5,7 @@
 #define TELEGRAMA_IMPLEMENTATION
 #include <fonts/Telegrama.hpp>
 
-static void draw_5way() {
+static void draw_buttons() {
     viewport<lcd_t> vp(lcd);
     vp.center({9,9});
     vp.rotation(0);
@@ -37,7 +37,10 @@ static void draw_5way() {
         vp.translate({0,9})
     };
     spath16 left_path(sizeof(left_points)/sizeof(spoint16),left_points);
+    
     srect16 middle_rect(0,9,8,17);
+
+    srect16 button_rect(0,0,10,7);
 
     spoint16 org = up_path.bounds().center((srect16)lcd.bounds()).offset(0,10).top_left();
     up_path.offset_inplace(org);
@@ -50,7 +53,23 @@ static void draw_5way() {
     draw::filled_polygon(lcd,left_path,button_left.pressed()?color_t::blue:color_t::white);
     middle_rect.offset_inplace(org);
     draw::filled_rectangle(lcd,middle_rect,button_press.pressed()?color_t::blue:color_t::white);
+    button_rect.offset_inplace((lcd.dimensions().width-((button_rect.width()+4)*3))/2,org.y+50);
+    draw::filled_rounded_rectangle(lcd,button_rect,.5,button_c.pressed()?color_t::blue:color_t::white);
+    button_rect.offset_inplace(button_rect.width()+4,0);
+    draw::filled_rounded_rectangle(lcd,button_rect,.5,button_b.pressed()?color_t::blue:color_t::white);
+    button_rect.offset_inplace(button_rect.width()+4,0);
+    draw::filled_rounded_rectangle(lcd,button_rect,.5,button_a.pressed()?color_t::blue:color_t::white);
 }
+static void button_a_on_click(int clicks,void* state) {
+    Serial.println("A");
+}
+static void button_b_on_click(int clicks,void* state) {
+    Serial.println("B");
+}
+static void button_c_on_click(int clicks,void* state) {
+    Serial.println("C");
+}
+
 static void button_up_on_click(int clicks,void* state) {
     Serial.println("Up");
 }
@@ -72,6 +91,9 @@ void setup() {
     wio_initialize();
     
     // set the button callbacks
+    button_a.on_click(button_a_on_click);
+    button_b.on_click(button_b_on_click);
+    button_c.on_click(button_c_on_click);
     button_up.on_click(button_up_on_click);
     button_down.on_click(button_down_on_click);
     button_left.on_click(button_left_on_click);
@@ -100,6 +122,6 @@ void loop() {
     static uint32_t update_ts = 0;
     if(millis()>update_ts+250) {
         update_ts = millis();
-        draw_5way();
+        draw_buttons();
     }
 }

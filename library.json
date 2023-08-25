@@ -1,6 +1,6 @@
 {
     "name": "htcw_wio_terminal",
-    "version": "0.1.32",
+    "version": "0.1.33",
     "description": "Provides support for the Wio Terminal devkit",
     "keywords": ["wio","gfx","button","lcd"],
     "authors": {
@@ -20,8 +20,12 @@
             "base": "examples/demo",
             "files": [
                 "platformio.ini",
+                "include/ui.hpp",
                 "include/fonts/Telegrama.hpp",
-                "src/main.cpp"
+                "src/main_gfx.cpp",
+                "src/main_uix.cpp",
+                "src/ui.cpp"
+
             ]
         }
     ],

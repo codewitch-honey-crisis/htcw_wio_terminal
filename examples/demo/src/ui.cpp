@@ -118,9 +118,14 @@ void main_screen_initialize() {
     button_left.on_pressed_changed(buttons_on_pressed_changed);
     button_right.on_pressed_changed(buttons_on_pressed_changed);
     button_press.on_pressed_changed(buttons_on_pressed_changed);
-
+    // set the flush callback for the main screen
+    main_screen.on_flush_callback(main_screen_on_flush_callback);
     constexpr const size_t line_height = 35;
     main_screen.background_color(color_t::black);
+    // for performance we don't want to update the controls at the 
+    // same time as the screen. This little trick fixes that
+    main_screen.update();
+    main_screen.validate_all();
     srect16 b(main_screen.bounds().x1,0,main_screen.bounds().x2,line_height+2);
     b.center_vertical_inplace((srect16)main_screen.bounds());
     b.offset_inplace(0,-40);
@@ -139,7 +144,5 @@ void main_screen_initialize() {
     b.center_horizontal_inplace(main_screen.bounds());
     buttons_canvas.bounds(b);
     buttons_canvas.on_paint(buttons_canvas_on_paint,nullptr);
-    main_screen.register_control(buttons_canvas);
-
-    main_screen.on_flush_callback(main_screen_on_flush_callback);
+    main_screen.register_control(buttons_canvas);   
 }

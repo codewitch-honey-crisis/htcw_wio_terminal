@@ -1,6 +1,6 @@
 {
     "name": "htcw_wio_terminal",
-    "version": "0.1.31",
+    "version": "0.1.32",
     "description": "Provides support for the Wio Terminal devkit",
     "keywords": ["wio","gfx","button","lcd"],
     "authors": {

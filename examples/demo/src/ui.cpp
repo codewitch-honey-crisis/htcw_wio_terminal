@@ -19,7 +19,7 @@ using color32_t = color<rgba_pixel<32>>;
 // this has the alpha channel set to 0 (transparent - RGBA8888)
 constexpr const gfx::rgba_pixel<32> transparent(0,0,0,0);
 
-screen_t main_screen(lcd_buffer_size,lcd_buffer);
+screen_t main_screen({320,240},lcd_buffer_size,lcd_buffer);
 label_t title_label(main_screen);
 canvas_t buttons_canvas(main_screen);
 
@@ -103,7 +103,7 @@ static void main_screen_on_flush_callback(const rect16& bounds,const void* bmp,v
     // draw the bitmap
     draw::bitmap(lcd,bounds,source,source.bounds());
     // let the main screen know we're done (DMA not supported with this driver)
-    main_screen.set_flush_complete();
+    main_screen.flush_complete();
 }
 void main_screen_initialize() {
 
@@ -143,6 +143,6 @@ void main_screen_initialize() {
     b=srect16(0,title_label.bounds().y2+5,99,main_screen.bounds().y2);
     b.center_horizontal_inplace(main_screen.bounds());
     buttons_canvas.bounds(b);
-    buttons_canvas.on_paint(buttons_canvas_on_paint,nullptr);
+    buttons_canvas.on_paint_callback(buttons_canvas_on_paint,nullptr);
     main_screen.register_control(buttons_canvas);   
 }

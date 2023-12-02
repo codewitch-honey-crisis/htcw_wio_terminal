@@ -8,7 +8,7 @@
 using color_t = gfx::color<typename lcd_t::pixel_type>;
 
 // define a screen type using the native resolution and pixel type
-using screen_t = uix::screen<320,240,typename lcd_t::pixel_type>;
+using screen_t = uix::screen<typename lcd_t::pixel_type>;
 
 // define a label control type for our screen_t
 using label_t = uix::label<typename screen_t::control_surface_type>;
